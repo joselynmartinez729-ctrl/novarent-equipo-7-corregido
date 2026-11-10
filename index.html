@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NovaRent – Panel de operación</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header>
+  <div class="brand">Nova<b>Rent</b></div>
+  <nav id="nav">
+    <button data-tab="flota" class="active">Flota</button>
+    <button data-tab="reservacion">Reservación</button>
+    <button data-tab="contrato">Contrato</button>
+    <button data-tab="reportes">Reportes</button>
+  </nav>
+  <span id="health" class="pill">…</span>
+</header>
+
+<main>
+<!-- ================= FLOTA ================= -->
+<section id="flota" class="tab active">
+  <div class="bar">
+    <h2>Panel de vehículos</h2>
+    <select id="f-cat"><option value="">Todas las categorías</option>
+      <option>ECONOMICO</option><option>COMPACTO</option><option>SEDAN</option><option>SUV</option><option>LUJO</option></select>
+    <button id="f-reload">Actualizar</button>
+  </div>
+  <p class="hint">Ciclo del auto: Disponible → Rentado → En revisión → Limpieza → Disponible (o Mantenimiento mayor).</p>
+  <div id="f-count" class="chips"></div>
+  <table id="f-table"><thead><tr><th>ID</th><th>Placas</th><th>Categoría</th><th>Estatus</th><th>Acciones</th></tr></thead><tbody></tbody></table>
+</section>
+
+<!-- ================= RESERVACIÓN ================= -->
+<section id="reservacion" class="tab">
+  <div class="bar"><h2>Reservación</h2>
+    <select id="r-id"><option>RES-001</option><option>RES-002</option><option>RES-003</option><option>RES-004</option><option>RES-005</option><option>RES-006</option></select>
+    <button id="r-load">Consultar</button>
+  </div>
+  <div id="r-info" class="card hidden"></div>
+  <div id="r-aviso" class="card aviso hidden"></div>
+
+  <div class="grid">
+    <form id="r-doc" class="card">
+      <h3>1. Validar documentación (CU-02)</h3>
+      <label>Titular <input name="titular" value="Joselyn Quiroga" required></label>
+      <label>Fecha de nacimiento <input type="date" name="fecha_nacimiento" value="1999-05-10" required></label>
+      <label>Licencia vigente hasta <input type="date" name="licencia_vigente_hasta" value="2028-01-01" required></label>
+      <label>Identificación vigente hasta <input type="date" name="identificacion_vigente_hasta" value="2029-01-01" required></label>
+      <button>Validar</button>
+    </form>
+
+    <div class="card" id="r-comp-card">
+      <h3>2. Compensación de categoría (CU-03)</h3>
+      <p class="hint">Si no hay autos de la categoría reservada: upgrade gratis o downgrade con 20 % de descuento.</p>
+      <button id="r-oferta" type="button">Ver oferta</button>
+      <label class="check"><input type="checkbox" id="c-up" checked> Acepta upgrade</label>
+      <label class="check"><input type="checkbox" id="c-down" checked> Acepta categoría inferior</label>
+      <button id="r-comp" type="button">Resolver compensación</button>
+    </div>
+
+    <form id="r-ent" class="card wide">
+      <h3>3. Entregar vehículo (CU-01)</h3>
+      <p id="r-ent-hint" class="hint hidden">Primero valida la documentación (paso 1) para habilitar la entrega.</p>
+      <div class="row">
+        <label>Últimos 4 dígitos de la tarjeta <input name="ultimos_4" value="1234" pattern="\d{4}" maxlength="4" required></label>
+        <label>Titular del voucher <input name="titular" value="Joselyn Quiroga" required></label>
+      </div>
+      <fieldset><legend>Inspección de salida</legend>
+        <div class="row">
+          <label>Kilometraje <input type="number" name="kilometraje" value="12000" min="0" required></label>
+          <label>Combustible <select name="combustible"><option>lleno</option><option>3/4</option><option>1/2</option><option>1/4</option><option>vacio</option></select></label>
+          <label>Fotos (separadas por coma) <input name="fotos" value="frente.jpg"></label>
+        </div>
+        <label>Daños marcados (coma) <input name="danos" placeholder="ej. rayón puerta izquierda"></label>
+        <label class="check"><input type="checkbox" name="esquema" checked> Esquema de daños completado</label>
+      </fieldset>
+      <button>Entregar</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= CONTRATO ================= -->
+<section id="contrato" class="tab">
+  <div class="bar">
+    <h2>Contrato</h2>
+    <select id="k-id"><option value="">Selecciona un contrato</option></select>
+    <button id="k-cargos">Ver cargos</button>
+  </div>
+  <div id="k-resumen" class="card hidden"></div>
+
+  <div class="grid">
+    <form id="k-dev" class="card">
+      <h3>Registrar devolución (CU-04)</h3>
+      <label>Fecha y hora de devolución <input type="datetime-local" name="hora" required></label>
+      <div class="row">
+        <label>Kilometraje <input type="number" name="kilometraje" value="12700" min="0" required></label>
+        <label>Combustible <select name="combustible"><option>lleno</option><option>3/4</option><option selected>1/2</option><option>1/4</option><option>vacio</option></select></label>
+      </div>
+      <label>Fotos (coma) <input name="fotos" value="devolucion.jpg"></label>
+      <label>Daños nuevos (coma) <input name="danos"></label>
+      <label class="check"><input type="checkbox" name="esquema" checked> Esquema completado</label>
+      <button>Devolver y calcular cargos</button>
+    </form>
+
+    <div class="card">
+      <form id="k-ext">
+        <h3>Extender renta</h3>
+        <label>Nuevo fin <input type="datetime-local" name="nuevo_fin" required></label>
+        <label class="check"><input type="checkbox" name="reservado"> Auto reservado por otro cliente</label>
+        <button>Extender</button>
+      </form>
+      <hr>
+      <form id="k-dan">
+        <h3>Cobrar daños</h3>
+        <label>Monto MXN <input type="number" name="monto" min="1" step="0.01" required></label>
+        <label>Descripción <input name="descripcion"></label>
+        <button>Registrar cargo</button>
+      </form>
+    </div>
+
+    <form id="k-can" class="card">
+      <h3>Cancelar un cargo (solo Administración + PIN)</h3>
+      <label>Índice del cargo <input type="number" name="indice" value="0" min="0" required></label>
+      <label>Rol <select name="rol"><option>ADMINISTRACION</option><option>AGENTE</option><option>PATIO</option><option>LIMPIEZA</option></select></label>
+      <label>PIN <input type="password" name="pin" required></label>
+      <label>Motivo <input name="motivo" value="Cortesía al cliente" required></label>
+      <button>Cancelar cargo</button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= REPORTES ================= -->
+<section id="reportes" class="tab">
+  <div class="bar"><h2>Reportes de Administración</h2></div>
+  <div class="grid">
+    <div class="card"><h3>Tasa de utilización (US14)</h3><button id="rp-util">Calcular</button><div id="rp-util-out"></div></div>
+    <div class="card"><h3>Ingresos por cargos (US15)</h3>
+      <label>Lunes de la semana (opcional) <input type="date" id="rp-desde"></label>
+      <button id="rp-ing">Calcular</button><div id="rp-ing-out"></div></div>
+  </div>
+</section>
+</main>
+
+<div id="log" class="log"><div class="log-h">Respuesta de la API <button id="log-x">limpiar</button></div><pre id="log-pre">Aquí se muestra cada respuesta (código HTTP + JSON).</pre></div>
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,51 @@
+:root{--bg:#f5f6f8;--card:#fff;--ink:#1c2430;--mut:#6b7686;--pri:#1f5eff;--ok:#12805c;--warn:#b26a00;--bad:#c0332b;--line:#e1e5ec}
+@media (prefers-color-scheme:dark){:root{--bg:#10151c;--card:#18202a;--ink:#e8edf3;--mut:#93a0b1;--pri:#6f9bff;--ok:#4cc79a;--warn:#e6a23c;--bad:#ff7a70;--line:#2a3441}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.45 system-ui,Segoe UI,Roboto,sans-serif;padding-bottom:230px}
+header{display:flex;align-items:center;gap:16px;padding:10px 20px;background:var(--card);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;flex-wrap:wrap}
+.brand{font-size:20px;font-weight:600}.brand b{color:var(--pri)}
+nav{display:flex;gap:4px;flex:1}
+nav button{background:none;border:0;padding:8px 14px;border-radius:8px;color:var(--mut);cursor:pointer;font:inherit}
+nav button.active{background:var(--pri);color:#fff}
+.pill{padding:3px 10px;border-radius:99px;background:var(--line);font-size:12px}
+.pill.ok{background:var(--ok);color:#fff}.pill.bad{background:var(--bad);color:#fff}
+main{max-width:1100px;margin:0 auto;padding:20px}
+.tab{display:none}.tab.active{display:block}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.bar h2{margin:0;flex:1 1 200px}
+.hint{color:var(--mut);margin:4px 0 12px;font-size:13px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px;margin-top:14px}
+.wide{grid-column:1/-1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card h3{margin:0 0 2px;font-size:16px}
+label{display:flex;flex-direction:column;gap:3px;font-size:13px;color:var(--mut);flex:1}
+label.check{flex-direction:row;align-items:center;gap:8px;color:var(--ink)}
+input,select{font:inherit;padding:8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);min-width:0}
+fieldset{border:1px solid var(--line);border-radius:8px;display:flex;flex-direction:column;gap:8px}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+button{font:inherit;padding:8px 14px;border-radius:8px;border:1px solid var(--pri);background:var(--pri);color:#fff;cursor:pointer}
+button:hover{filter:brightness(1.1)}
+button.sec{background:none;color:var(--pri)}
+button.sm{padding:3px 9px;font-size:12px}
+hr{border:0;border-top:1px solid var(--line);width:100%;margin:6px 0}
+table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{font-size:12px;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
+.tag{padding:2px 9px;border-radius:99px;font-size:12px;color:#fff;white-space:nowrap}
+.DISPONIBLE{background:var(--ok)}.RENTADO{background:var(--pri)}.EN_REVISION{background:var(--warn)}.LIMPIEZA{background:#7a5af8}.MANTENIMIENTO_MAYOR{background:var(--bad)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.hidden{display:none}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 14px}.kv span:nth-child(odd){color:var(--mut)}
+.big{font-size:28px;font-weight:600}
+.bar-bg{background:var(--line);border-radius:6px;height:10px;overflow:hidden}.bar-fg{background:var(--pri);height:100%}
+.log{position:fixed;left:0;right:0;bottom:0;background:#0f1720;color:#d6e2f0;max-height:210px;display:flex;flex-direction:column;border-top:2px solid var(--pri)}
+.log-h{padding:4px 14px;font-size:12px;display:flex;justify-content:space-between;background:#18232f}
+.log-h button{padding:0 8px;font-size:11px;background:none;border-color:#456}
+.log pre{margin:0;padding:8px 14px;overflow:auto;font:12px/1.4 ui-monospace,Consolas,monospace;white-space:pre-wrap}
+#toast{position:fixed;top:70px;right:20px;padding:10px 16px;border-radius:8px;color:#fff;display:none;z-index:9;max-width:360px}
+
+.log { display: none; }
+body { padding-bottom: 20px; }
+
+.aviso{border-color:var(--bad);color:var(--bad)}
+button:disabled,input:disabled,select:disabled{opacity:.45;cursor:not-allowed}
